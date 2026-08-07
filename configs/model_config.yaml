@@ -1,0 +1,9 @@
+# YOLO segmentation model configuration
+model_variant: "yolov8n-seg.pt"   # nano-seg: smallest/fastest, good for MVP validation
+image_size: 640
+epochs: 50
+batch_size: 8
+device: "0"                        # "0" = first GPU, "cpu" if no GPU available
+project_dir: "training/runs"
+run_name: "voc_seg_exp"
+resume_from_checkpoint: null

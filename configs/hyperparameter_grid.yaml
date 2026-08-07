@@ -1,0 +1,12 @@
+# Grid search space for hyperparameter tuning.
+# Each key is a ModelConfig field name; each value is a list of
+# candidates to try. The tuner runs every combination (cartesian
+# product), trains on data.yaml's "train" split, and scores each on
+# the "val" split only - "test" is never touched during tuning.
+
+grid:
+  epochs: [10, 20]
+  batch_size: [4, 8]
+  image_size: [640]
+
+selection_metric: "mask.map50_95"

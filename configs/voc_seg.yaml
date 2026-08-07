@@ -1,0 +1,31 @@
+# VOC2012 -> YOLO-seg conversion pipeline configuration
+# NOTE: you mentioned you already created a voc_seg.yaml - please compare
+# with this one and merge/keep whichever fields you need. Adjust
+# "voc_root" to match your actual disk path before running.
+
+dataset:
+  voc_root: "dataset/VOCdevkit/VOC2012"
+  output_root: "dataset/voc2012_yolo_seg"
+  # Auto-download: if voc_root isn't already present (checked by
+  # data/dataset_downloader.py), it's downloaded+extracted from this
+  # URL automatically before conversion runs. Leave unset to use the
+  # official host; override with a faster mirror if needed (e.g. a
+  # Kaggle-attached dataset URL - see README's Kaggle section).
+  # download_url: "http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar"
+  # NOTE: output splits are always exactly {train, val, test} now -
+  # decided by the split policy below, not listed manually here.
+
+# Policy: VOC's official train.txt is split ourselves into train/val
+# (used for training + hyperparameter tuning). VOC's official val.txt
+# is kept untouched and becomes our held-out "test" set.
+split:
+  seed: 42
+  train_ratio: 0.85   # of VOC's official train.txt -> 85% train / 15% val
+
+extraction:
+  min_contour_area_px: 4.0
+  polygon_epsilon_ratio: 0.005
+  keep_largest_contour_only: true
+
+export:
+  use_symlink: true
